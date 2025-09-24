@@ -235,6 +235,34 @@
             font-size: 1.1em;
         }
         
+        .go-section {
+            background: #e8f5e9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid #4caf50;
+        }
+        
+        .go-section h3 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
+        .mcp-section {
+            background: #f3e5f5;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid #9c27b0;
+        }
+        
+        .mcp-section h3 {
+            color: #6a1b9a;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+        
         .results-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -419,7 +447,7 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         
-        .skill-indicator {
+        .system-note {
             font-size: 0.75em;
             color: #888;
             margin-top: 5px;
@@ -513,9 +541,9 @@
         </div>
         
         <div class="calculator-grid">
-            <!-- Agent Studio Card -->
+            <!-- Consolidated Usage Inputs Card -->
             <div class="card">
-                <h2>🤖 Agent Studio (Genies)</h2>
+                <h2>📊 Usage Inputs</h2>
                 
                 <div class="info-box">
                     <p><strong>Quick Reference:</strong><br>
@@ -525,93 +553,91 @@
                 </div>
                 
                 <div class="calc-box">
-                    <h3>User-Initiated Interactions</h3>
+                    <h3>🤖 Genie Interactions</h3>
                     
                     <div class="input-group">
                         <label>Number of Users</label>
-                        <input type="number" id="genie-users" value="50" min="0" onchange="calculateGenieActions()">
+                        <input type="number" id="genie-users" value="200" min="0" onchange="calculateGenieActions()">
                         <div class="tooltip">💡 Total employees/users who will chat with your Genies</div>
                     </div>
                     
                     <div class="input-group">
                         <label>Chat Sessions per User per Month</label>
-                        <input type="number" id="sessions-per-user" value="4" min="0" step="0.5" onchange="calculateGenieActions()">
-                        <div class="tooltip">💡 How often each user starts a new conversation (e.g., 1 per week = ~4/month)</div>
+                        <input type="number" id="sessions-per-user" value="120" min="0" step="1" onchange="calculateGenieActions()">
+                        <div class="tooltip">💡 Average sessions per month (default: ~4 per day)</div>
                     </div>
                     
                     <div class="input-group">
                         <label>Messages per Session</label>
                         <input type="number" id="messages-per-session" value="5" min="0" step="0.5" onchange="calculateGenieActions()">
-                        <div class="tooltip">💡 Average back-and-forth in a conversation (user asks, Genie responds, user clarifies, etc.)</div>
+                        <div class="tooltip">💡 Average back-and-forth in a conversation</div>
                     </div>
                     
                     <div class="calc-result">
                         <strong>User-Initiated Genie Actions:</strong>
-                        <span class="calc-value" id="calculated-genie-actions">1,000</span>
+                        <span class="calc-value" id="calculated-genie-actions">120,000</span>
                     </div>
                 </div>
                 
                 <div class="app-events-section">
-                    <h3>🔔 App Event (Proactive) Notifications</h3>
+                    <h3>🔔 App Event Notifications</h3>
                     
                     <div class="input-group">
                         <label>App Events per User per Month</label>
                         <input type="number" id="app-events-per-user" value="2" min="0" step="0.5" onchange="calculateAppEvents()">
-                        <div class="tooltip">💡 Proactive notifications (e.g., meeting prep, alerts, reminders)</div>
+                        <div class="tooltip">💡 Proactive notifications (meeting prep, alerts, reminders)</div>
                     </div>
                     
                     <div class="input-group">
                         <label>User Response Rate to App Events (%)</label>
                         <input type="number" id="app-event-response-rate" value="30" min="0" max="100" step="5" onchange="calculateAppEvents()">
-                        <div class="tooltip">💡 % of app events where user engages in follow-up conversation</div>
+                        <div class="tooltip">💡 % of app events where user engages in follow-up</div>
                     </div>
                     
                     <div class="input-group">
                         <label>Follow-up Messages per App Event</label>
                         <input type="number" id="app-event-followups" value="2" min="0" step="0.5" onchange="calculateAppEvents()">
-                        <div class="tooltip">💡 Additional messages when user responds to app event</div>
+                        <div class="tooltip">💡 Additional messages when user responds</div>
                     </div>
                     
                     <div class="calc-result">
                         <strong>App Event Genie Actions:</strong>
-                        <span class="calc-value" id="app-event-genie-actions">230</span>
-                        <br><small style="color: #e65100;">Business Actions: <span id="app-event-business-actions">100</span></small>
+                        <span class="calc-value" id="app-event-genie-actions">920</span>
+                        <br><small style="color: #e65100;">Business Actions: <span id="app-event-business-actions">400</span></small>
                     </div>
                 </div>
                 
-                <div class="input-group">
-                    <label>Override: Total Genie Actions</label>
-                    <input type="number" id="genie-actions" value="1230" min="0">
-                    <div class="tooltip">💡 Manually override if you have exact usage numbers</div>
+                <div class="go-section">
+                    <h3>📱 GO App Users</h3>
+                    <div class="input-group">
+                        <label>Total GO App Users</label>
+                        <input type="number" id="go-users" value="" min="0" placeholder="Enter GO App users">
+                        <div class="tooltip">💡 Total seats provisioned (1,000 included, then 25k credits/user)</div>
+                    </div>
+                </div>
+                
+                <div class="mcp-section">
+                    <h3>🔌 MCP Server</h3>
+                    <div class="input-group">
+                        <label>MCP Calls per Month</label>
+                        <input type="number" id="mcp-calls" value="" min="0" placeholder="Enter MCP calls">
+                        <div class="tooltip">💡 API requests to MCP-configured collections</div>
+                    </div>
                 </div>
                 
                 <div class="underlying">
-                    <h3>Underlying Services (per Chat Session)</h3>
+                    <h3>📄 Document Processing (per Session)</h3>
                     <div class="input-group">
                         <label>IDP Pages per Session</label>
                         <input type="number" id="idp-pages" value="0" min="0" step="0.1">
                         <div class="tooltip">💡 Document pages processed (receipts, invoices, forms)</div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- GO App and MCP Card -->
-            <div class="card">
-                <h2>📱 GO App</h2>
-                <div class="input-group">
-                    <label>Total GO App Users</label>
-                    <input type="number" id="go-users" value="1500" min="0">
-                    <div class="tooltip">💡 Total seats provisioned (not just active users)</div>
-                </div>
-                <div class="info-box">
-                    <p>ℹ️ 1,000 users included • Additional users: 25,000 credits each</p>
-                </div>
                 
-                <h2 style="margin-top: 30px;">🔌 MCP Server</h2>
                 <div class="input-group">
-                    <label>MCP Calls per Month</label>
-                    <input type="number" id="mcp-calls" value="10000" min="0">
-                    <div class="tooltip">💡 API requests to MCP-configured collections</div>
+                    <label>Override: Total Genie Actions</label>
+                    <input type="number" id="genie-actions" value="120920" min="0">
+                    <div class="tooltip">💡 Manually override if you have exact usage numbers</div>
                 </div>
             </div>
             
@@ -621,12 +647,12 @@
                 
                 <div class="result-item">
                     <span>Genie Actions (All):</span>
-                    <span class="result-value" id="genie-credits">24,600</span>
+                    <span class="result-value" id="genie-credits">2,418,400</span>
                 </div>
                 
                 <div class="result-item">
                     <span>App Event Business Actions:</span>
-                    <span class="result-value" id="app-event-ba-credits">280</span>
+                    <span class="result-value" id="app-event-ba-credits">1,120</span>
                 </div>
                 
                 <div class="result-item">
@@ -636,56 +662,51 @@
                 
                 <div class="result-item">
                     <span>GO App Users (Additional):</span>
-                    <span class="result-value" id="go-credits">12,500,000</span>
+                    <span class="result-value" id="go-credits">0</span>
                 </div>
                 
                 <div class="result-item">
                     <span>MCP Calls:</span>
-                    <span class="result-value" id="mcp-credits">5,000</span>
+                    <span class="result-value" id="mcp-credits">0</span>
                 </div>
                 
                 <div class="total-result">
                     <div class="result-item">
                         <span>TOTAL CREDITS:</span>
-                        <span class="result-value" id="total-credits">12,531,560</span>
+                        <span class="result-value" id="total-credits">2,419,520</span>
                     </div>
                 </div>
                 
                 <button class="calculate-btn" onclick="calculateCredits()">Calculate Credits</button>
-            </div>
-            
-            <!-- Reference Rates Card -->
-            <div class="card">
-                <h2>📋 Credit Rate Reference</h2>
-                <div class="credit-rates">
-                    <div class="rate-item">
-                        <strong>Genie Actions</strong>
-                        <span>20 credits per action</span>
-                    </div>
-                    <div class="rate-item">
-                        <strong>Business Actions</strong>
-                        <span>2.8 credits per action</span>
-                    </div>
-                    <div class="rate-item">
-                        <strong>GO App Users</strong>
-                        <span>25,000 credits per user</span>
-                    </div>
-                    <div class="rate-item">
-                        <strong>MCP Calls</strong>
-                        <span>0.5 credits per call</span>
-                    </div>
-                    <div class="rate-item">
-                        <strong>IDP Pages</strong>
-                        <span>33.3 credits per page</span>
-                    </div>
-                    <div class="rate-item">
-                        <strong>Knowledge Storage</strong>
-                        <span>200K credits per 100GB</span>
-                    </div>
-                </div>
                 
-                <div class="info-box" style="margin-top: 20px;">
-                    <p><strong>Remember:</strong> App Events trigger automatically: 1 Business Action + 2 Genie Actions. Additional user responses create more Genie Actions.</p>
+                <div style="margin-top: 30px;">
+                    <h2 style="color: white; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 10px; margin-bottom: 20px;">📋 Credit Rate Reference</h2>
+                    <div class="credit-rates">
+                        <div class="rate-item">
+                            <strong>Genie Actions</strong>
+                            <span>20 credits per action</span>
+                        </div>
+                        <div class="rate-item">
+                            <strong>Business Actions</strong>
+                            <span>2.8 credits per action</span>
+                        </div>
+                        <div class="rate-item">
+                            <strong>GO App Users</strong>
+                            <span>25,000 credits per user<br>(after 1,000 included)</span>
+                        </div>
+                        <div class="rate-item">
+                            <strong>MCP Calls</strong>
+                            <span>0.5 credits per call</span>
+                        </div>
+                        <div class="rate-item">
+                            <strong>IDP Pages</strong>
+                            <span>33.3 credits per page</span>
+                        </div>
+                        <div class="rate-item">
+                            <strong>Knowledge Storage</strong>
+                            <span>200K credits per 100GB<br>(after 1TB included)</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -717,7 +738,6 @@
                                 <div class="message-bubble">
                                     <p class="message-text">The next public holiday in the United States is Memorial Day, which falls on May 26, 2025</p>
                                 </div>
-                                <div class="skill-indicator">2 Skill Calls</div>
                             </div>
                         </div>
                         <div class="chat-message user">
@@ -752,7 +772,6 @@
                                 <div class="message-bubble">
                                     <p class="message-text">I've submitted a PTO request for Friday, May 23 2025. You will receive an email confirmation once it's approved by your manager</p>
                                 </div>
-                                <div class="skill-indicator">6 Skill Calls</div>
                             </div>
                         </div>
                         <div class="chat-message user">
@@ -777,28 +796,24 @@
                         <h4>Metrics Summary</h4>
                         <div class="metrics-row">
                             <span class="metrics-label">Genie Actions:</span>
-                            <span class="metrics-value">4 × 20 = 80 credits</span>
+                            <span class="metrics-value">4</span>
                         </div>
                         <div class="metrics-row">
-                            <span class="metrics-label">Skill Calls:</span>
-                            <span class="metrics-value">8 total</span>
-                        </div>
-                        <div class="metrics-row">
-                            <span class="metrics-label">Workflow Actions:</span>
-                            <span class="metrics-value">6 × 2.8 = 16.8 credits</span>
+                            <span class="metrics-label">Credits per Action:</span>
+                            <span class="metrics-value">20</span>
                         </div>
                         <div class="metrics-row">
                             <span class="metrics-label">Total:</span>
-                            <span class="metrics-value">96.8 credits</span>
+                            <span class="metrics-value">80 credits</span>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Expense Report Submission Scenario -->
                 <div class="scenario-card">
-                    <h3>💰 Expense Report Submission</h3>
+                    <h3>💰 Expense Report with IDP</h3>
                     <div class="scenario-description">
-                        Employee submits a hotel expense with receipt. The Genie creates an expense report in Coupa, processes the receipt using IDP, and submits for approval.
+                        Employee submits a hotel expense with receipt. The Genie creates an expense report in Coupa and processes the receipt using IDP.
                     </div>
                     <div class="chat-interface">
                         <div class="chat-message user">
@@ -833,7 +848,6 @@
                                 <div class="message-bubble">
                                     <p class="message-text">I created an expense report and added your hotel expense to it. Do you want to add more expenses to this report?</p>
                                 </div>
-                                <div class="skill-indicator">1 Skill Call</div>
                             </div>
                         </div>
                         <div class="chat-message user">
@@ -851,7 +865,7 @@
                                 <div class="message-bubble">
                                     <p class="message-text">I've submitted the expense report. You'll receive an email confirmation once your manager approves it.</p>
                                 </div>
-                                <div class="skill-indicator">1 Skill Call + 1 Workflow Recipe with IDP</div>
+                                <div class="system-note">IDP processed: 2 pages</div>
                             </div>
                         </div>
                     </div>
@@ -862,16 +876,12 @@
                             <span class="metrics-value">3 × 20 = 60 credits</span>
                         </div>
                         <div class="metrics-row">
-                            <span class="metrics-label">Business Actions:</span>
-                            <span class="metrics-value">2 × 2.8 = 5.6 credits</span>
-                        </div>
-                        <div class="metrics-row">
                             <span class="metrics-label">IDP Pages:</span>
                             <span class="metrics-value">2 × 33.3 = 66.6 credits</span>
                         </div>
                         <div class="metrics-row">
                             <span class="metrics-label">Total:</span>
-                            <span class="metrics-value">132.2 credits</span>
+                            <span class="metrics-value">126.6 credits</span>
                         </div>
                     </div>
                 </div>
@@ -890,7 +900,7 @@
                                     <p class="message-text">I've researched the attendees for your upcoming meeting. Here's information on each one...</p>
                                 </div>
                                 <div class="action-indicator">1</div>
-                                <div class="skill-indicator">App Event Trigger: 1 BA</div>
+                                <div class="system-note">App Event: 1 BA + 2 automatic GA</div>
                             </div>
                         </div>
                         <div class="chat-message user">
@@ -908,31 +918,26 @@
                                 <div class="message-bubble">
                                     <p class="message-text">Here's more information on X...</p>
                                 </div>
-                                <div class="skill-indicator">3 Data lookups</div>
                             </div>
                         </div>
                     </div>
                     <div class="metrics-summary">
                         <h4>Metrics Summary</h4>
                         <div class="metrics-row">
-                            <span class="metrics-label">App Event Trigger:</span>
-                            <span class="metrics-value">1 BA (2.8 credits)</span>
+                            <span class="metrics-label">Business Action (App Event):</span>
+                            <span class="metrics-value">1 × 2.8 = 2.8 credits</span>
                         </div>
                         <div class="metrics-row">
-                            <span class="metrics-label">System Genie Actions:</span>
+                            <span class="metrics-label">Automatic Genie Actions:</span>
                             <span class="metrics-value">2 × 20 = 40 credits</span>
                         </div>
                         <div class="metrics-row">
-                            <span class="metrics-label">User follow-up:</span>
+                            <span class="metrics-label">User follow-up GA:</span>
                             <span class="metrics-value">1 × 20 = 20 credits</span>
                         </div>
                         <div class="metrics-row">
-                            <span class="metrics-label">Data lookups:</span>
-                            <span class="metrics-value">3 × 2.8 = 8.4 credits</span>
-                        </div>
-                        <div class="metrics-row">
                             <span class="metrics-label">Total:</span>
-                            <span class="metrics-value">71.2 credits</span>
+                            <span class="metrics-value">62.8 credits</span>
                         </div>
                     </div>
                 </div>
@@ -941,7 +946,7 @@
                 <div class="scenario-card">
                     <h3>🎫 IT Help Desk Ticket</h3>
                     <div class="scenario-description">
-                        User reports a password reset issue. Genie verifies identity, creates a ServiceNow ticket, triggers password reset workflow, and sends confirmation.
+                        User reports a password reset issue. Genie verifies identity, creates a ServiceNow ticket, and triggers password reset.
                     </div>
                     <div class="chat-interface">
                         <div class="chat-message user">
@@ -976,7 +981,6 @@
                                 <div class="message-bubble">
                                     <p class="message-text">Thanks! I've verified your identity and created ticket #SN00123. Triggering password reset now...</p>
                                 </div>
-                                <div class="skill-indicator">3 Workflow Actions</div>
                             </div>
                         </div>
                         <div class="chat-message user">
@@ -994,7 +998,6 @@
                                 <div class="message-bubble">
                                     <p class="message-text">Password reset complete! You'll receive an email with instructions. Your ticket has been resolved.</p>
                                 </div>
-                                <div class="skill-indicator">2 Workflow Actions + 2 Notifications</div>
                             </div>
                         </div>
                     </div>
@@ -1002,19 +1005,15 @@
                         <h4>Metrics Summary</h4>
                         <div class="metrics-row">
                             <span class="metrics-label">Genie Actions:</span>
-                            <span class="metrics-value">3 × 20 = 60 credits</span>
+                            <span class="metrics-value">3</span>
                         </div>
                         <div class="metrics-row">
-                            <span class="metrics-label">Workflow Actions:</span>
-                            <span class="metrics-value">5 × 2.8 = 14 credits</span>
-                        </div>
-                        <div class="metrics-row">
-                            <span class="metrics-label">Notifications:</span>
-                            <span class="metrics-value">2 × 2.8 = 5.6 credits</span>
+                            <span class="metrics-label">Credits per Action:</span>
+                            <span class="metrics-value">20</span>
                         </div>
                         <div class="metrics-row">
                             <span class="metrics-label">Total:</span>
-                            <span class="metrics-value">79.6 credits</span>
+                            <span class="metrics-value">60 credits</span>
                         </div>
                     </div>
                 </div>
@@ -1023,7 +1022,7 @@
                 <div class="scenario-card">
                     <h3>📊 Sales CRM Update</h3>
                     <div class="scenario-description">
-                        Sales rep asks Genie to update opportunity stage, add meeting notes, and schedule follow-up. Multiple Salesforce API calls and calendar operations in single session.
+                        Sales rep asks Genie to update opportunity stage, add meeting notes, and schedule follow-up.
                     </div>
                     <div class="chat-interface">
                         <div class="chat-message user">
@@ -1041,7 +1040,6 @@
                                 <div class="message-bubble">
                                     <p class="message-text">I've updated the Acme Corp opportunity to Stage 3 - Negotiation in Salesforce.</p>
                                 </div>
-                                <div class="skill-indicator">2 CRM Updates</div>
                             </div>
                         </div>
                         <div class="chat-message user">
@@ -1059,7 +1057,6 @@
                                 <div class="message-bubble">
                                     <p class="message-text">Note added to the opportunity.</p>
                                 </div>
-                                <div class="skill-indicator">2 CRM Updates</div>
                             </div>
                         </div>
                         <div class="chat-message user">
@@ -1077,7 +1074,6 @@
                                 <div class="message-bubble">
                                     <p class="message-text">Follow-up meeting scheduled for next Tuesday at 2 PM. Calendar invite sent to all participants.</p>
                                 </div>
-                                <div class="skill-indicator">1 Calendar Action</div>
                             </div>
                         </div>
                     </div>
@@ -1085,19 +1081,15 @@
                         <h4>Metrics Summary</h4>
                         <div class="metrics-row">
                             <span class="metrics-label">Genie Actions:</span>
-                            <span class="metrics-value">3 × 20 = 60 credits</span>
+                            <span class="metrics-value">3</span>
                         </div>
                         <div class="metrics-row">
-                            <span class="metrics-label">CRM Updates:</span>
-                            <span class="metrics-value">4 × 2.8 = 11.2 credits</span>
-                        </div>
-                        <div class="metrics-row">
-                            <span class="metrics-label">Calendar Action:</span>
-                            <span class="metrics-value">1 × 2.8 = 2.8 credits</span>
+                            <span class="metrics-label">Credits per Action:</span>
+                            <span class="metrics-value">20</span>
                         </div>
                         <div class="metrics-row">
                             <span class="metrics-label">Total:</span>
-                            <span class="metrics-value">74 credits</span>
+                            <span class="metrics-value">60 credits</span>
                         </div>
                     </div>
                 </div>
@@ -1106,7 +1098,7 @@
                 <div class="scenario-card">
                     <h3>🔄 Simple Query Response</h3>
                     <div class="scenario-description">
-                        User asks a simple question like "When is the next company holiday?" Genie responds with direct answer. Minimal skill calls, no workflow triggers.
+                        User asks a simple question. Genie responds with direct answer. Most efficient interaction type.
                     </div>
                     <div class="chat-interface">
                         <div class="chat-message user">
@@ -1124,23 +1116,18 @@
                                 <div class="message-bubble">
                                     <p class="message-text">The next company holiday is Memorial Day on Monday, May 26, 2025.</p>
                                 </div>
-                                <div class="skill-indicator">1 Skill Call (lookup only)</div>
                             </div>
                         </div>
                     </div>
                     <div class="metrics-summary">
                         <h4>Metrics Summary</h4>
                         <div class="metrics-row">
-                            <span class="metrics-label">Genie Action:</span>
-                            <span class="metrics-value">1 × 20 = 20 credits</span>
+                            <span class="metrics-label">Genie Actions:</span>
+                            <span class="metrics-value">1</span>
                         </div>
                         <div class="metrics-row">
-                            <span class="metrics-label">Skill Calls:</span>
-                            <span class="metrics-value">1 (lookup only)</span>
-                        </div>
-                        <div class="metrics-row">
-                            <span class="metrics-label">Workflow Actions:</span>
-                            <span class="metrics-value">0</span>
+                            <span class="metrics-label">Credits per Action:</span>
+                            <span class="metrics-value">20</span>
                         </div>
                         <div class="metrics-row">
                             <span class="metrics-label">Total:</span>
@@ -1218,13 +1205,13 @@
             const appEventsPerUser = parseFloat(document.getElementById('app-events-per-user').value) || 0;
             const totalAppEvents = users * appEventsPerUser;
             
-            // Get session data
+            // Get session data for IDP calculation
             const sessionsPerUser = parseFloat(document.getElementById('sessions-per-user').value) || 0;
             const totalSessions = users * sessionsPerUser;
             
             // Credit rates
             const GENIE_RATE = 20;
-            const WORKFLOW_RATE = 2.8;
+            const BUSINESS_ACTION_RATE = 2.8;
             const IDP_RATE = 33.3;
             const GO_USER_RATE = 25000;
             const MCP_RATE = 0.5;
@@ -1232,8 +1219,8 @@
             
             // Calculate credits
             const genieCredits = genieActions * GENIE_RATE;
-            const appEventBACredits = totalAppEvents * WORKFLOW_RATE; // App events count as business actions
-            const idpCredits = totalSessions * idpPages * IDP_RATE;
+            const appEventBACredits = totalAppEvents * BUSINESS_ACTION_RATE; // App events count as business actions
+            const idpCredits = totalSessions * idpPages * IDP_RATE; // IDP is per session
             const additionalGoUsers = Math.max(0, goUsers - GO_INCLUDED_USERS);
             const goCredits = additionalGoUsers * GO_USER_RATE;
             const mcpCredits = mcpCalls * MCP_RATE;
